@@ -3,7 +3,7 @@
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
 
-docker build --squash -t ${IMAGE} . \
+docker build --squash -t ${IMAGE} test \
     && docker run --rm \
         -v ${BASEDIR}/target/failsafe-reports:/fitnesse/target/failsafe-reports \
         -v ${BASEDIR}/target/fitnesse-results/test:/fitnesse/target/fitnesse-results \

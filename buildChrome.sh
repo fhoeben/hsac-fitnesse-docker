@@ -3,8 +3,7 @@
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:latest
 
-docker build --squash -t ${IMAGE} \
-        -f Dockerfile-selenium  . \
+docker build --squash -t ${IMAGE} chrome \
     && docker run --rm \
         -v ${BASEDIR}/target/failsafe-reports:/fitnesse/target/failsafe-reports \
         -v ${BASEDIR}/target/fitnesse-results/chrome:/fitnesse/target/fitnesse-results \

@@ -39,7 +39,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <fitnesse.version>20180127</fitnesse.version>
         <hsac.fixtures.version>3.22.0</hsac.fixtures.version>
-        <standalone.classpath>wiki/fixtures</standalone.classpath>
+        <standalone.classpath>test/wiki/fixtures</standalone.classpath>
     </properties>
 
     <dependencies>
@@ -86,7 +86,7 @@
                 <executions>
                     <execution>
                         <id>copy-dependencies-to-wiki-fixtures</id>
-                        <phase>package</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
@@ -111,7 +111,7 @@
                         <configuration>
                             <unpack>
                                 <artifact>nl.hsac:hsac-fitnesse-fixtures:zip</artifact>
-                                <targetDirectory>${project.basedir}/wiki</targetDirectory>
+                                <targetDirectory>${standalone.classpath}/..</targetDirectory>
                                 <overwrite>false</overwrite>
                                 <resources>
                                     <resource>

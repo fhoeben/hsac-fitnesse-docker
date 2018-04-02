@@ -14,7 +14,7 @@ The image which contains Chrome also exposes its Selenium log (in `/fitnesse/tar
 Both images are preconfigured to start a FitNesse run immediately when started and you are expected to supply a suite to run using a system property value for 'fitnesseSuiteToRun'
 (e.g. `-DfitnesseSuiteToRun=SampleTests.SlimTests.UtilityFixtures`).
 
-Samples on how use the images can be found in this repo's `buildTest.sh` and `buildSelenium.sh` scripts, which after building the images also run a container based on the newly 
+Samples on how use the images can be found in this repo's `buildTest.sh` and `buildChrome.sh` scripts, which after building the images also run a container based on the newly 
 created image (using wiki content from `src/main/wiki`). 
 
 The images also contain a script to combine test results from multiple test runs in a single report: `htmlReportIndexGenerator.sh`.

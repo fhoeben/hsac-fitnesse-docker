@@ -12,7 +12,7 @@ And there is an image, based on Selenium's standalone chrome one: hsac/fitnesse-
 The image which contains Chrome also exposes its Selenium log (in `/fitnesse/target/selenium-log`).
 
 Both images are preconfigured to start a FitNesse run immediately when started and you are expected to supply a suite to run using a system property value for 'fitnesseSuiteToRun'
-(e.g. `-DfitnesseSuiteToRun=SampleTests.SlimTests.UtilityFixtures`).
+(e.g. `-DfitnesseSuiteToRun=SampleTests.SlimTests.UtilityFixtures`). Other system properties arguments can also be supplied as arguments to 'docker run'.
 
 Samples on how use the images can be found in this repo's `buildTest.sh` and `buildChrome.sh` scripts, which after building the images also run a container based on the newly 
 created image (using wiki content from `src/main/wiki`). 

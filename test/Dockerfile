@@ -1,4 +1,5 @@
-FROM openjdk:8-jre-alpine
+ARG  JRE_VERSION=8-jre-alpine
+FROM openjdk:${JRE_VERSION}
 
 RUN mkdir -p /fitnesse/wiki/fixtures/nl/hsac/fitnesse
 

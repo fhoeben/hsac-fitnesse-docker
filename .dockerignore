@@ -1,0 +1,6 @@
+.idea/
+chrome/
+src/main/wiki/
+target/
+test/
+hsac-fitnesse-docker.iml

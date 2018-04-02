@@ -1,5 +1,5 @@
 ARG  TEST_VERSION=latest
-ARG  SELENIUM_VERSION=3.11.0
+ARG  SELENIUM_VERSION=latest
 FROM hsac/fitnesse-fixtures-test-jre8:${TEST_VERSION} as hsac-fixtures
 
 FROM selenium/standalone-chrome:${SELENIUM_VERSION}

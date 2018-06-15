@@ -3,7 +3,7 @@ Besides FitNesse hsac-fitnesse-fixtures it also contains a local Chrome browser 
 Its source can be found on [GitHub](https://github.com/fhoeben/hsac-fitnesse-docker).
 
 The tests to be run are expected to be supplied by a volume mounted to `/fitnesse/wiki/FitNesseRoot`. 
-Test results will be written to `/fitnesse/target`, in surefire xml format (in `/fitnesse/target/failsafe-reports`) and in HTML (in `/fitnesse/target/fitnesse-rersults`).
+Test results will be written to `/fitnesse/target`, in surefire xml format (in `/fitnesse/target/failsafe-reports`) and in HTML (in `/fitnesse/target/fitnesse-results`).
 By mounting a volume the host running the container can access these results after the test run is completed.
 It exposes its Selenium log (in `/fitnesse/target/selenium-log`).
 

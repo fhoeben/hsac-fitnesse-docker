@@ -3,7 +3,7 @@ This docker image project creates images to run test using FitNesse and the base
 The docker images allow tests to be run from inside a docker container.
 
 The tests to be run are expected to be supplied by a volume mounted to `/fitnesse/wiki/FitNesseRoot`. 
-Test results will be written to `/fitnesse/target`, in surefire xml format (in `/fitnesse/target/failsafe-reports`) and in HTML (in `/fitnesse/target/fitnesse-rersults`).
+Test results will be written to `/fitnesse/target`, in surefire xml format (in `/fitnesse/target/failsafe-reports`) and in HTML (in `/fitnesse/target/fitnesse-results`).
 By mounting a volume the host running the container can access these results after the test run is completed.
 
 There is a base image: hsac/fitnesse-fixtures-test-jre8, which just contains a JRE, FitNesse and hsac fixtures.

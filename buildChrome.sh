@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SELENIUM_VERSION=${1:-3.12}
+SELENIUM_VERSION=${1:-3.14}
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:latest

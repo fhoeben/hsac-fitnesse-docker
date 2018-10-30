@@ -4,7 +4,8 @@ Its source can be found on [GitHub](https://github.com/fhoeben/hsac-fitnesse-doc
 
 The tests to be run are expected to be supplied by a volume mounted to `/fitnesse/wiki/FitNesseRoot`. 
 Test results will be written to `/fitnesse/target`, in surefire xml format (in `/fitnesse/target/failsafe-reports`) and in HTML (in `/fitnesse/target/fitnesse-results`).
-By mounting a volume the host running the container can access these results after the test run is completed.
+By mounting a volume the host running the container can access these results after the test run is completed. 
+Or they can be copied from the stopped container to the host using `docker cp ${TEST_CONTAINER}:/fitnesse/target/. ${HOST_TARGET_DIR}` (this is easier permission-wise).
 It exposes its Selenium log (in `/fitnesse/target/selenium-log`).
 
 The image is preconfigured to start a FitNesse run immediately when started and you are expected to supply a suite to run using a system property value for 'fitnesseSuiteToRun'

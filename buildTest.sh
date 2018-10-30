@@ -8,5 +8,6 @@ docker build --squash -t ${IMAGE} test \
         -v ${BASEDIR}/target/failsafe-reports:/fitnesse/target/failsafe-reports \
         -v ${BASEDIR}/target/fitnesse-results/test:/fitnesse/target/fitnesse-results \
         -v ${BASEDIR}/src/main/wiki:/fitnesse/wiki/FitNesseRoot \
+        -e RE_RUN_FAILED=true \
         ${IMAGE} \
         -DfitnesseSuiteToRun=SampleTests.SlimTests.UtilityFixtures

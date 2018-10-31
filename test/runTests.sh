@@ -11,13 +11,9 @@ fi
 ${CMD}
 
 retVal=$?
-if [ ${retVal} -ne 0 ]; then
-    if [ -f '/fitnesse/wiki/FitNesseRoot/ReRunLastFailures.wiki' -a "${RE_RUN_FAILED}" = "true" ]; then
-        echo "Rerunning failed tests"
-        CMD="java -cp ${FITNESSE_CP} ${FITNESSE_OPTS} $@ -DfitnesseSuiteToRun=ReRunLastFailures -DfitnesseResultsDir=target/fitnesse-rerun-results nl.hsac.fitnesse.junit.JUnitConsoleRunner nl.hsac.fitnesse.HsacFitNesseSuiteStarter"
-        echo ${CMD}
-        ${CMD}
-        exit $?
-    fi
+if [ ${retVal} -ne 0 -a "${RE_RUN_FAILED}" = "true" ]; then
+    export RE_RUN_FAILED=false
+    ./rerunFailedTests.sh $@
+    retVal=$?
 fi
 exit ${retVal}

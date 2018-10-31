@@ -15,6 +15,7 @@ RUN mkdir wiki/FitNesseRoot
 VOLUME /fitnesse/wiki/FitNesseRoot
 
 COPY runTests.sh .
+COPY rerunFailedTests.sh .
 COPY htmlReportIndexGenerator.sh .
 
 ENTRYPOINT ["/fitnesse/runTests.sh"]

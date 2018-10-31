@@ -20,3 +20,7 @@ created image (using wiki content from `src/main/wiki`).
 The images also contain a script to combine test results from multiple test runs in a single report: `htmlReportIndexGenerator.sh`.
 This script can be invoked using `docker run` by changing the entrypoint of either of the images to this script and mounting the fitnesse-results created by individual runs.
 A sample of how to do this can be found in this repo's `combineReports.sh`. 
+
+The images also support re-running of failed tests. This can be useful when tests are a bit unstable, so they can be retried before declaring failure. This can be enabled by
+supplying the environment variabble `RE_RUN_FAILED` with value `true`. The HTML of the re-run will be generated in `/fitnesse/target/fitnesse-rerun-results`, the surefire xml
+report in `/fitnesse/target/failsafe-reports` will be overridden.

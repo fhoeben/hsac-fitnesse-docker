@@ -39,6 +39,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <fitnesse.version>20190216</fitnesse.version>
         <hsac.fixtures.version>4.1.0</hsac.fixtures.version>
+        <hsac.pdf.version>0.0.5</hsac.pdf.version>
+        <hsac.email.version>0.2.0</hsac.email.version>
         <standalone.classpath>test/wiki/fixtures</standalone.classpath>
     </properties>
 
@@ -61,6 +63,50 @@
             <version>4.12</version>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>withPdf</id>
+            <dependencies>
+                <dependency>
+                    <groupId>nl.hsac</groupId>
+                    <artifactId>hsac-fitnesse-pdf</artifactId>
+                    <version>${hsac.pdf.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.fitnesse</groupId>
+                            <artifactId>fitnesse</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>nl.hsac</groupId>
+                            <artifactId>hsac-fitnesse-fixtures</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>withEmail</id>
+            <dependencies>
+                <dependency>
+                    <groupId>nl.hsac</groupId>
+                    <artifactId>hsac-fitnesse-email</artifactId>
+                    <version>${hsac.email.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.fitnesse</groupId>
+                            <artifactId>fitnesse</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>nl.hsac</groupId>
+                            <artifactId>hsac-fitnesse-fixtures</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <build>
         <outputDirectory>${standalone.classpath}</outputDirectory>

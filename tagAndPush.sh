@@ -16,10 +16,24 @@ docker tag hsac/fitnesse-fixtures-test-jre8:latest hsac/fitnesse-fixtures-test-j
 echo "Pushing ${VERSION}"
 docker push hsac/fitnesse-fixtures-test-jre8:${VERSION}
 
-echo "Pushing latest"
+echo "Pushing chrome:latest"
 docker push hsac/fitnesse-fixtures-test-jre8-chrome:latest
 
 docker tag hsac/fitnesse-fixtures-test-jre8-chrome:latest hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}
-echo "Pushing ${VERSION}"
+echo "Pushing chrome:${VERSION}"
 docker push hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}
+
+echo "Pushing with-pdf:latest"
+docker push hsac/fitnesse-fixtures-test-jre8-with-pdf:latest
+
+docker tag hsac/fitnesse-fixtures-test-jre8-with-pdf:latest hsac/fitnesse-fixtures-test-jre8-with-pdf:${VERSION}
+echo "Pushing with-pdf:${VERSION}"
+docker push hsac/fitnesse-fixtures-test-jre8-with-pdf:${VERSION}
+
+echo "Pushing chrome-with-pdf:latest"
+docker push hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest
+
+docker tag hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION}
+echo "Pushing chrome-with-pdf:${VERSION}"
+docker push hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION}
 

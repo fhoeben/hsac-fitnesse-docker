@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+JRE_VERSION=${1:-8-jre-alpine}
+
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
+
+docker pull openjdk:${JRE_VERSION}
 
 docker build --squash -t ${IMAGE} test \
     && docker run --rm \

@@ -5,6 +5,8 @@ SELENIUM_VERSION=${1:-3.141.59}
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:latest
 
+docker pull selenium/standalone-chrome:${SELENIUM_VERSION}
+
 docker build --squash --build-arg SELENIUM_VERSION=${SELENIUM_VERSION} -t ${IMAGE} chrome \
     && docker run --rm \
         -v ${BASEDIR}/target/failsafe-reports:/fitnesse/target/failsafe-reports \

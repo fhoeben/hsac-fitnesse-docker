@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-SELENIUM_VERSION=${1:-3.141.59}
+VERSION_SUFFIX=$1
+SELENIUM_VERSION=${2:-3.141.59}${VERSION_SUFFIX}
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:latest
+IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:latest${VERSION_SUFFIX}
 
 docker pull selenium/standalone-chrome:${SELENIUM_VERSION}
 

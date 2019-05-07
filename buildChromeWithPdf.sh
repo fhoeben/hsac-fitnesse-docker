@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+VERSION_SUFFIX=$1
+
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest
+IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest${VERSION_SUFFIX}
 
 docker build --squash -t ${IMAGE} chrome-with-pdf \
     && docker run --rm \

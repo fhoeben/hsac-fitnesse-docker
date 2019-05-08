@@ -5,6 +5,8 @@ VERSION_SUFFIX=$2
 
 echo "Creating version ${VERSION} and ${VERSION}${VERSION_SUFFIX}"
 
+rm -rf target
+
 ./buildBase.sh \
     && ./buildTest.sh \
     && ./buildTestWithPdf.sh \

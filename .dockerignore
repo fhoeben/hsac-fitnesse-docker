@@ -6,3 +6,6 @@ target/
 test/
 test-with-pdf/
 hsac-fitnesse-docker.iml
+*.sh
+LICENSE.txt
+README.md

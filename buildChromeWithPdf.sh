@@ -5,7 +5,7 @@ VERSION_SUFFIX=$1
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest${VERSION_SUFFIX}
 
-docker build --squash -t ${IMAGE} chrome-with-pdf \
+docker build --squash --build-arg TEST_CHROME_VERSION=latest${VERSION_SUFFIX} -t ${IMAGE} chrome-with-pdf \
     && docker run --rm \
         -v ${BASEDIR}/target/failsafe-reports:/fitnesse/target/failsafe-reports \
         -v ${BASEDIR}/target/fitnesse-results/chrome-pdf${VERSION_SUFFIX}:/fitnesse/target/fitnesse-results \

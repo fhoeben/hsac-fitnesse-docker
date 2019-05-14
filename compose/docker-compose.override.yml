@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+
+  test:
+    volumes:
+      - "../target/failsafe-reports:/fitnesse/target/failsafe-reports"
+      - "../target/fitnesse-results/test:/fitnesse/target/fitnesse-results"
+      - "../target/fitnesse-results/test-rerun:/fitnesse/target/fitnesse-rerun-results"
+      - "../src/main/wiki:/fitnesse/wiki/FitNesseRoot"
+
+  test-with-pdf:
+    volumes:
+      - "../target/failsafe-reports:/fitnesse/target/failsafe-reports"
+      - "../target/fitnesse-results/test-pdf:/fitnesse/target/fitnesse-results"
+      - "../target/fitnesse-results/test-pdf-rerun:/fitnesse/target/fitnesse-rerun-results"
+      - "../src/main/wiki:/fitnesse/wiki/FitNesseRoot"
+
+  chrome:
+    volumes:
+    - "../target/failsafe-reports:/fitnesse/target/failsafe-reports"
+    - "../target/fitnesse-results/chrome:/fitnesse/target/fitnesse-results"
+    - "../target/fitnesse-results/chrome-rerun:/fitnesse/target/fitnesse-rerun-results"
+    - "../src/main/wiki:/fitnesse/wiki/FitNesseRoot"
+    - "../target/selenium-log:/fitnesse/target/selenium-log"
+
+  chrome-with-pdf:
+    volumes:
+    - "../target/failsafe-reports:/fitnesse/target/failsafe-reports"
+    - "../target/fitnesse-results/chrome-pdf:/fitnesse/target/fitnesse-results"
+    - "../target/fitnesse-results/chrome-pdf-rerun:/fitnesse/target/fitnesse-rerun-results"
+    - "../src/main/wiki:/fitnesse/wiki/FitNesseRoot"
+    - "../target/selenium-log-pdf:/fitnesse/target/selenium-log"
+
+  chrome-suffix:
+    volumes:
+    - "../target/failsafe-reports:/fitnesse/target/failsafe-reports"
+    - "../target/fitnesse-results/chrome-${VERSION_SUFFIX}:/fitnesse/target/fitnesse-results"
+    - "../target/fitnesse-results/chrome-${VERSION_SUFFIX}-rerun:/fitnesse/target/fitnesse-rerun-results"
+    - "../src/main/wiki:/fitnesse/wiki/FitNesseRoot"
+    - "../target/selenium-log-${VERSION_SUFFIX}:/fitnesse/target/selenium-log"
+
+  chrome-with-pdf-suffix:
+    volumes:
+    - "../target/failsafe-reports:/fitnesse/target/failsafe-reports"
+    - "../target/fitnesse-results/chrome-pdf-${VERSION_SUFFIX}:/fitnesse/target/fitnesse-results"
+    - "../target/fitnesse-results/chrome-pdf-${VERSION_SUFFIX}-rerun:/fitnesse/target/fitnesse-rerun-results"
+    - "../src/main/wiki:/fitnesse/wiki/FitNesseRoot"
+    - "../target/selenium-log-pdf-${VERSION_SUFFIX}:/fitnesse/target/selenium-log"

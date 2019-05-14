@@ -5,6 +5,7 @@ src/main/wiki/
 target/
 test/
 test-with-pdf/
+compose/
 hsac-fitnesse-docker.iml
 *.sh
 LICENSE.txt

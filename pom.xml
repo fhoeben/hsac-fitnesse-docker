@@ -123,6 +123,17 @@
                 </configuration>
             </plugin>
             <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>test/wiki</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
                 <!-- Use dependency:copy-dependencies to copy all jar from dependencies to ${standalone.classpath},
                      where classes from this project end up also, so that all fixtures and
                      dependencies are available to Fitnesse without need to have Maven to run tests.

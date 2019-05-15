@@ -5,4 +5,5 @@ if [ -f '/fitnesse/wiki/FitNesseRoot/ReRunLastFailures.wiki' ]; then
     ./runTests.sh $@ -DfitnesseSuiteToRun=ReRunLastFailures -DfitnesseResultsDir=target/fitnesse-rerun-results
 else
     echo "No tests to re-run found."
+    exit 1
 fi

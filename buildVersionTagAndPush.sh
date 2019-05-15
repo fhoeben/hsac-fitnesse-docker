@@ -7,6 +7,8 @@ echo "Creating version ${VERSION} and ${VERSION}${VERSION_SUFFIX}"
 
 rm -rf target
 
+export TEST_IMAGES=true
+
 ./buildBase.sh \
     && ./buildTest.sh \
     && ./buildTestWithPdf.sh \

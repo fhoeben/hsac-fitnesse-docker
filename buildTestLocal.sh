@@ -7,8 +7,11 @@ IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
 
 docker pull openjdk:${JRE_VERSION}
 
-docker build --squash -f test/Dockerfile-local -t ${IMAGE} test \
-    && docker run --rm \
+docker build --squash -f test/Dockerfile-local -t ${IMAGE} test
+
+retVal=$?
+if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then
+    docker run --rm \
         -v ${BASEDIR}/target/failsafe-reports:/fitnesse/target/failsafe-reports \
         -v ${BASEDIR}/target/fitnesse-results/test:/fitnesse/target/fitnesse-results \
         -v ${BASEDIR}/target/fitnesse-results/test-rerun:/fitnesse/target/fitnesse-rerun-results \
@@ -16,3 +19,6 @@ docker build --squash -f test/Dockerfile-local -t ${IMAGE} test \
         -e RE_RUN_FAILED=true \
         ${IMAGE} \
         -DfitnesseSuiteToRun=SampleTests.SlimTests.UtilityFixtures
+    retVal=$?
+fi
+exit ${retVal}

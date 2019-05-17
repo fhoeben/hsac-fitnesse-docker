@@ -1,0 +1,13 @@
+ARG  JRE_VERSION=8-jre-alpine
+
+FROM openjdk:${JRE_VERSION}
+RUN mkdir -p /fitnesse/target
+
+WORKDIR /fitnesse
+
+VOLUME /fitnesse/target
+
+ENTRYPOINT ["java", "-jar", "/fitnesse/target/hsac-html-report-generator.jar"]
+CMD []
+
+COPY target/hsac-html-report-generator.jar target

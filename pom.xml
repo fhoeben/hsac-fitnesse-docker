@@ -130,6 +130,9 @@
                         <fileset>
                             <directory>test/wiki</directory>
                         </fileset>
+                        <fileset>
+                            <directory>combine/target</directory>
+                        </fileset>
                     </filesets>
                 </configuration>
             </plugin>
@@ -188,6 +191,45 @@
                         <type>zip</type>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>nl.hsac.fitnesse.junit.reportmerge.HtmlReportIndexGenerator</mainClass>
+                                </transformer>
+                            </transformers>
+                            <minimizeJar>true</minimizeJar>
+                            <outputFile>combine/target/hsac-html-report-generator.jar</outputFile>
+                            <filters>
+                                <filter>
+                                    <artifact>nl.hsac:hsac-fitnesse-fixtures</artifact>
+                                    <includes>
+                                        <include>nl/hsac/fitnesse/fixture/util/File*</include>
+                                        <include>nl/hsac/fitnesse/junit/reportmerge/**</include>
+                                    </includes>
+                                </filter>
+                            </filters>
+                            <artifactSet>
+                                <includes>
+                                    <include>nl.hsac:hsac-fitnesse-fixtures</include>
+                                </includes>
+                                <excludes>
+                                    <exclude>${project.groupId}:${project.artifactId}</exclude>
+                                </excludes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

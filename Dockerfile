@@ -9,4 +9,4 @@ RUN mvn compile
 
 COPY src/ ./src
 
-RUN mvn compile
+RUN mvn package

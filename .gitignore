@@ -1,5 +1,5 @@
 .idea
-hsac-fitnesse-docker.iml
+*.iml
 /test/wiki/**/*
 target/
 /src/main/wiki/ReRunLastFailures.wiki

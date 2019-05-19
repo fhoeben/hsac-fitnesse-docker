@@ -10,6 +10,13 @@ docker tag hsac/fitnesse-fixtures-test-jre8:base-latest hsac/fitnesse-fixtures-t
 echo "Pushing base-${VERSION}"
 docker push hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
 
+echo "Pushing combine latest"
+docker push hsac/fitnesse-fixtures-combine:latest
+
+docker tag hsac/fitnesse-fixtures-combine:latest hsac/fitnesse-fixtures-combine:${VERSION}
+echo "Pushing combine ${VERSION}"
+docker push hsac/fitnesse-fixtures-combine:${VERSION}
+
 echo "Pushing latest"
 docker push hsac/fitnesse-fixtures-test-jre8:latest
 

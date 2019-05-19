@@ -16,5 +16,6 @@ export TEST_IMAGES=true
     && ./buildChromeWithPdf.sh ${VERSION_SUFFIX} \
     && ./buildChrome.sh \
     && ./buildChromeWithPdf.sh \
+    && ./buildCombine.sh \
     && ./combineReports.sh \
     && ./tagAndPush.sh ${VERSION} ${VERSION_SUFFIX}

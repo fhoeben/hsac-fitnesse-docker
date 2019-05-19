@@ -11,6 +11,7 @@ export TEST_IMAGES=false
 cd ..
 
 ./buildBase.sh \
+    && ./buildCombine.sh \
     && ./buildTest.sh \
     && ./buildTestWithPdf.sh \
     && ./buildChrome.sh ${VERSION_SUFFIX} \

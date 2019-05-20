@@ -5,7 +5,7 @@ VERSION=${1:-latest}
 PROJECT=compose
 
 REPORT_DIR=${BASEDIR}/target/fitnesse-results
-COMBINE_IMAGE=hsac/fitnesse-fixtures-test-jre8:${VERSION}
+COMBINE_IMAGE=hsac/fitnesse-fixtures-combine:${VERSION}
 
 COMPOSE_CMD="docker-compose -f docker-compose.yml"
 
@@ -119,7 +119,7 @@ combineReports() {
 
     CONTAINER=${PROJECT}_combine-reports_1
 
-    docker create --name ${CONTAINER} --entrypoint /fitnesse/htmlReportIndexGenerator.sh ${COMBINE_IMAGE}
+    docker create --name ${CONTAINER} ${COMBINE_IMAGE}
 
     # Create CONTAINER_DIR in container
     chmod a+w ${REPORT_DIR}

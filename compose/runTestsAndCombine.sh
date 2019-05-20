@@ -10,6 +10,8 @@ export VERSION
 
 docker-compose up
 
-${BASEDIR}/combineReports.sh
+docker run --rm \
+    -v ${BASEDIR}/target/fitnesse-results:/fitnesse/target/fitnesse-results \
+    hsac/fitnesse-fixtures-combine:${VERSION}
 
 docker-compose down

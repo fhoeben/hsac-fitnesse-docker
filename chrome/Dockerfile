@@ -15,7 +15,7 @@ VOLUME /fitnesse/target
 VOLUME /fitnesse/wiki/FitNesseRoot
 
 ENV JAVA_OPTS -Xmx96m -Xms96m
-ENV FITNESSE_OPTS -DseleniumBrowser=chrome -DseleniumGridUrl=http://localhost:4444/wd/hub
+ENV FITNESSE_OPTS -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -DseleniumBrowser=chrome -DseleniumGridUrl=http://localhost:4444/wd/hub
 
 ENTRYPOINT ["/fitnesse/startGridAndRunTests.sh"]
 CMD []

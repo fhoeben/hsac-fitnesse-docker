@@ -14,6 +14,7 @@ VOLUME /fitnesse/target
 RUN mkdir wiki/FitNesseRoot
 VOLUME /fitnesse/wiki/FitNesseRoot
 
+ENV FITNESSE_OPTS -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true
 COPY runTests.sh .
 COPY rerunFailedTests.sh .
 COPY htmlReportIndexGenerator.sh .

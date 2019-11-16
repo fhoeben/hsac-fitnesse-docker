@@ -176,6 +176,7 @@
                                 <resources>
                                     <resource>
                                         <include>plugins/**</include>
+                                        <exclude>plugins/toolchain-*</exclude>
                                     </resource>
                                 </resources>
                             </unpack>

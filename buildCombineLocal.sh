@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
-JRE_VERSION=${1:-8-jre-alpine}
+GRAALVM_VERSION=${1:-latest}
+BUSYBOX_VERSION=latest
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-combine:latest
 
-docker pull openjdk:${JRE_VERSION}
+docker pull oracle/graalvm-ce:${GRAALVM_VERSION}
+docker pull busybox:${BUSYBOX_VERSION}
 
 docker build --squash -f combine/Dockerfile-local -t ${IMAGE} combine
 

@@ -1,15 +1,25 @@
 ARG  BASE_VERSION=base-latest
-ARG  JRE_VERSION=8-jre-alpine
+ARG  GRAALVM_VERSION=latest
+ARG  BUSYBOX_VERSION=latest
 
 FROM hsac/fitnesse-fixtures-test-jre8:${BASE_VERSION} as base
 
-FROM openjdk:${JRE_VERSION}
+FROM oracle/graalvm-ce:${GRAALVM_VERSION} as graal
+RUN gu install native-image
 
 WORKDIR /fitnesse
 
 VOLUME /fitnesse/target
 
-ENTRYPOINT ["java", "-jar", "/fitnesse/target/hsac-html-report-generator.jar"]
+COPY --from=base /usr/src/combine/target/hsac-html-report-generator.jar target/
+
+RUN native-image -jar target/hsac-html-report-generator.jar --static
+
+FROM busybox:${BUSYBOX_VERSION}
+WORKDIR /fitnesse
+VOLUME /fitnesse/target
+
+ENTRYPOINT ["/fitnesse/hsac-html-report-generator"]
 CMD []
 
-COPY --from=base /usr/src/combine/target/hsac-html-report-generator.jar target/
+COPY --from=graal /fitnesse/hsac-html-report-generator .

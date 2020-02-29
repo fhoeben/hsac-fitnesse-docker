@@ -54,6 +54,13 @@
             <groupId>nl.hsac</groupId>
             <artifactId>hsac-fitnesse-fixtures</artifactId>
             <version>${hsac.fixtures.version}</version>
+            <exclusions>
+                <exclusion>
+                    <!-- exclude as we will not be on windows -->
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient-win</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Testing -->

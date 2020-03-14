@@ -1,14 +1,12 @@
-ARG  TEST_VERSION=latest
+ARG  TEST_IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
 ARG  SELENIUM_VERSION=latest
-FROM hsac/fitnesse-fixtures-test-jre8:${TEST_VERSION} as hsac-fixtures
+FROM ${TEST_IMAGE} as hsac-fixtures
 
 FROM selenium/standalone-chrome:${SELENIUM_VERSION}
-COPY --from=hsac-fixtures /fitnesse /fitnesse
+RUN sudo mkdir -p /fitnesse/target/selenium-log
 RUN sudo chown -R seluser:seluser /fitnesse/
 
 WORKDIR /fitnesse
-
-RUN mkdir -p /fitnesse/target/selenium-log
 COPY startGridAndRunTests.sh .
 
 VOLUME /fitnesse/target
@@ -21,3 +19,5 @@ ENV FITNESSE_OPTS -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=tr
 
 ENTRYPOINT ["/fitnesse/startGridAndRunTests.sh"]
 CMD []
+
+COPY --from=hsac-fixtures --chown=seluser:seluser /fitnesse /fitnesse

@@ -1,8 +1,8 @@
-ARG  BASE_VERSION=base-latest
-ARG  TEST_VERSION=latest
+ARG  BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-latest
+ARG  TEST_IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
 
-FROM hsac/fitnesse-fixtures-test-jre8:${BASE_VERSION} as base
+FROM ${BASE_IMAGE} as base
 RUN mvn compile -P withPdf
 
-FROM hsac/fitnesse-fixtures-test-jre8:${TEST_VERSION}
+FROM ${TEST_IMAGE}
 COPY --from=base /usr/src/test/wiki/fixtures wiki/fixtures

@@ -1,7 +1,7 @@
-ARG TEST_VERSION=latest
-ARG TEST_CHROME_VERSION=latest
+ARG TEST_IMAGE=hsac/fitnesse-fixtures-test-jre8-with-pdf:latest
+ARG TEST_CHROME_IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:latest
 
-FROM hsac/fitnesse-fixtures-test-jre8-with-pdf:${TEST_VERSION} as test
+FROM ${TEST_IMAGE} as test
 
-FROM hsac/fitnesse-fixtures-test-jre8-chrome:${TEST_CHROME_VERSION}
+FROM ${TEST_CHROME_IMAGE}
 COPY --from=test /fitnesse/wiki/fixtures /fitnesse/wiki/fixtures

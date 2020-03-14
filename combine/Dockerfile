@@ -1,21 +1,20 @@
-ARG  BASE_VERSION=base-latest
-ARG  GRAALVM_VERSION=latest
-ARG  BUSYBOX_VERSION=latest
+ARG  BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-latest
+ARG  GRAALVM_IMAGE=oracle/graalvm-ce:latest
+ARG  BUSYBOX_IMAGE=busybox:latest
 
-FROM hsac/fitnesse-fixtures-test-jre8:${BASE_VERSION} as base
+FROM ${BASE_IMAGE} as base
 
-FROM oracle/graalvm-ce:${GRAALVM_VERSION} as graal
+FROM ${GRAALVM_IMAGE} as graal
 RUN gu install native-image
+RUN mkdir -p /fitnesse/target
 
 WORKDIR /fitnesse
-
-VOLUME /fitnesse/target
 
 COPY --from=base /usr/src/combine/target/hsac-html-report-generator.jar target/
 
 RUN native-image -jar target/hsac-html-report-generator.jar --static
 
-FROM busybox:${BUSYBOX_VERSION}
+FROM ${BUSYBOX_IMAGE}
 WORKDIR /fitnesse
 VOLUME /fitnesse/target
 

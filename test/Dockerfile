@@ -1,9 +1,9 @@
-ARG  BASE_VERSION=base-latest
-ARG  JRE_VERSION=8-jre-alpine
+ARG  BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-latest
+ARG  JRE_IMAGE=openjdk:8-jre-alpine
 
-FROM hsac/fitnesse-fixtures-test-jre8:${BASE_VERSION} as base
+FROM ${BASE_IMAGE} as base
 
-FROM openjdk:${JRE_VERSION}
+FROM ${JRE_IMAGE}
 RUN mkdir -p /fitnesse/wiki/fixtures/nl/hsac/fitnesse
 
 WORKDIR /fitnesse

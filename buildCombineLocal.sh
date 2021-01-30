@@ -6,7 +6,7 @@ BUSYBOX_VERSION=latest
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-combine:latest
 
-docker pull oracle/graalvm-ce:${GRAALVM_VERSION}
+docker pull ghcr.io/graalvm/graalvm-ce:${GRAALVM_VERSION}
 docker pull busybox:${BUSYBOX_VERSION}
 
 docker build --squash -f combine/Dockerfile-local -t ${IMAGE} combine

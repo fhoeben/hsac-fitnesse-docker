@@ -7,7 +7,7 @@ IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
 
 docker pull openjdk:${JRE_VERSION}
 
-docker build --squash -f test/Dockerfile-local -t ${IMAGE} test
+docker build  -f test/Dockerfile-local -t ${IMAGE} test
 
 retVal=$?
 if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then

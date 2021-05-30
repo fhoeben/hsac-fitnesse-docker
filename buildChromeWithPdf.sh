@@ -6,7 +6,7 @@ BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest${VERSION_SUFFIX}
 TEST_CHROME_IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:latest${VERSION_SUFFIX}
 
-docker build --squash --build-arg TEST_CHROME_IMAGE=${TEST_CHROME_IMAGE} -t ${IMAGE} chrome-with-pdf
+docker build  --build-arg TEST_CHROME_IMAGE=${TEST_CHROME_IMAGE} -t ${IMAGE} chrome-with-pdf
 
 retVal=$?
 if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then

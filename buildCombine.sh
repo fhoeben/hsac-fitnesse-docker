@@ -13,7 +13,7 @@ docker build --platform linux/amd64 --squash -t ${IMAGE} combine
 
 retVal=$?
 if [[ ${retVal} -eq 0 ]]; then
-    docker run --rm \
+    docker run --platform linux/amd64 --rm \
         -v ${BASEDIR}/target/fitnesse-results:/fitnesse/target/fitnesse-results \
         ${IMAGE}
     retVal=$?

@@ -7,7 +7,7 @@ docker build --platform linux/amd64 -t ${IMAGE} test-with-pdf
 
 retVal=$?
 if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then
-    docker run --rm \
+    docker run --platform linux/amd64 --rm \
         -v ${BASEDIR}/target/failsafe-reports:/fitnesse/target/failsafe-reports \
         -v ${BASEDIR}/target/fitnesse-results/test-pdf:/fitnesse/target/fitnesse-results \
         -v ${BASEDIR}/target/fitnesse-results/test-pdf-rerun:/fitnesse/target/fitnesse-rerun-results \

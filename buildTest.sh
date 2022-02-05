@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-JRE_VERSION=${1:-8-jre-alpine}
+JRE_VERSION=${1:8-alpine3.15-jre}
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
 
-docker pull openjdk:${JRE_VERSION}
+docker pull amazoncorretto:${JRE_VERSION}
 
 docker build  -t ${IMAGE} test
 

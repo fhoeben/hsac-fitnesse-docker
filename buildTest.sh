@@ -7,7 +7,7 @@ IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
 
 docker pull amazoncorretto:${JRE_VERSION}
 
-docker build  -t ${IMAGE} test
+docker build --platform linux/amd64 -t ${IMAGE} test
 
 retVal=$?
 if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then

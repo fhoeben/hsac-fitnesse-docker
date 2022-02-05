@@ -8,7 +8,7 @@ IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:latest${VERSION_SUFFIX}
 
 docker pull selenium/standalone-chrome:${SELENIUM_VERSION}
 
-docker build  --build-arg SELENIUM_VERSION=${SELENIUM_VERSION} -t ${IMAGE} chrome
+docker build  --platform linux/amd64 --build-arg SELENIUM_VERSION=${SELENIUM_VERSION} -t ${IMAGE} chrome
 
 retVal=$?
 if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then

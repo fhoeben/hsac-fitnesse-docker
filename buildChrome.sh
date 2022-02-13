@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 VERSION_SUFFIX=$1
-SELENIUM_VERSION=${2:-3.141.59}${VERSION_SUFFIX}
+SELENIUM_VERSION=${2:-4.1.2}${VERSION_SUFFIX}
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:latest${VERSION_SUFFIX}

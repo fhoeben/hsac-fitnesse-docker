@@ -1,21 +1,19 @@
 #!/usr/bin/env bash
 
 VERSION=$1
-VERSION_SUFFIX=$2
+PLATFORM=${2:-arm64}
 
-echo "Creating version ${VERSION} and ${VERSION}${VERSION_SUFFIX}"
+echo "Creating version ${VERSION}"
 
 rm -rf target
 
 export TEST_IMAGES=true
 
-./buildBase.sh \
-    && ./buildTest.sh \
-    && ./buildTestWithPdf.sh \
-    && ./buildChrome.sh ${VERSION_SUFFIX} \
-    && ./buildChromeWithPdf.sh ${VERSION_SUFFIX} \
-    && ./buildChrome.sh \
-    && ./buildChromeWithPdf.sh \
-    && ./buildCombine.sh \
-    && ./combineReports.sh \
-    && ./tagAndPush.sh ${VERSION} ${VERSION_SUFFIX}
+./buildBase.sh ${VERSION} \
+    && ./buildTest.sh ${VERSION} \
+    && ./buildTestWithPdf.sh ${VERSION} \
+    && ./buildChrome.sh ${VERSION} \
+    && ./buildChromeWithPdf.sh ${VERSION} \
+    && ./buildCombine.sh ${VERSION} \
+    && ./combineReports.sh ${VERSION} \
+    && ./tagAndPush.sh ${VERSION} ${PLATFORM}

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
+VERSION=${1:-latest}
+IMAGE=hsac/fitnesse-fixtures-test-jre8:${VERSION}
 
 docker run --rm --entrypoint /fitnesse/htmlReportIndexGenerator.sh \
     -v ${BASEDIR}/target/fitnesse-results/:/fitnesse/target/fitnesse-results \

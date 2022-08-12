@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 
-VERSION_SUFFIX=$1
-SELENIUM_VERSION=${2:-4.1.2}${VERSION_SUFFIX}
+VERSION=${1:-latest}
+SELENIUM_VERSION=${2:-103.0}
+SELENIUM_IMAGE=seleniarm/standalone-chromium:${SELENIUM_VERSION}
+TEST_IMAGE=hsac/fitnesse-fixtures-test-jre8:${VERSION}
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:latest${VERSION_SUFFIX}
+IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}
 
-docker pull selenium/standalone-chrome:${SELENIUM_VERSION}
+docker pull ${SELENIUM_IMAGE}
 
-docker build  --platform linux/amd64 --build-arg SELENIUM_VERSION=${SELENIUM_VERSION} -t ${IMAGE} chrome
+docker build --build-arg SELENIUM_IMAGE --build-arg TEST_IMAGE -t ${IMAGE} chrome
 
 retVal=$?
 if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then
-    docker run --platform linux/amd64 --rm \
+    docker run --rm \
         -v ${BASEDIR}/target/failsafe-reports:/fitnesse/target/failsafe-reports \
         -v ${BASEDIR}/target/fitnesse-results/chrome${VERSION_SUFFIX}:/fitnesse/target/fitnesse-results \
         -v ${BASEDIR}/target/fitnesse-results/chrome-rerun${VERSION_SUFFIX}:/fitnesse/target/fitnesse-rerun-results \

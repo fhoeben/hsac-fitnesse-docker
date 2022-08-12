@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE=hsac/fitnesse-fixtures-test-jre8:base-latest
+VERSION=${1:-latest}
+IMAGE=hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
 
-docker build --platform linux/amd64 --pull  -t ${IMAGE} .
+docker build --pull -t ${IMAGE} .

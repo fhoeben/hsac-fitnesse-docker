@@ -1,19 +1,23 @@
 #!/usr/bin/env bash
 
-GRAALVM_VERSION=${1:-latest}
+VERSION=${1:-latest}
+GRAALVM_VERSION=${2:-latest}
 BUSYBOX_VERSION=latest
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE=hsac/fitnesse-fixtures-combine:latest
+BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
+GRAALVM_IMAGE=ghcr.io/graalvm/native-image:${GRAALVM_VERSION}
+BUSYBOX_IMAGE=busybox:${BUSYBOX_VERSION}
+IMAGE=hsac/fitnesse-fixtures-combine:${VERSION}
 
-docker pull ghcr.io/graalvm/native-image:${GRAALVM_VERSION}
-docker pull busybox:${BUSYBOX_VERSION}
+docker pull ${GRAALVM_IMAGE}
+docker pull ${BUSYBOX_IMAGE}
 
-docker build --platform linux/amd64 --squash -t ${IMAGE} combine
+docker build --squash --build-arg BASE_IMAGE --build-arg GRAALVM_IMAGE --build-arg BUSYBOX_IMAGE -t ${IMAGE} combine
 
 retVal=$?
 if [[ ${retVal} -eq 0 ]]; then
-    docker run --platform linux/amd64 --rm \
+    docker run --rm \
         -v ${BASEDIR}/target/fitnesse-results:/fitnesse/target/fitnesse-results \
         ${IMAGE}
     retVal=$?

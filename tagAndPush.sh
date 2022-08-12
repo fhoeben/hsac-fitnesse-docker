@@ -1,76 +1,67 @@
 #!/usr/bin/env bash
 
 VERSION=$1
-VERSION_SUFFIX=$2
+PLATFORM=$2
 
-echo "Pushing base-latest"
-docker push hsac/fitnesse-fixtures-test-jre8:base-latest
-
-if [[ "$VERSION" != "latest" ]]; then
-  docker tag hsac/fitnesse-fixtures-test-jre8:base-latest hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
-  echo "Pushing base-${VERSION}"
-  docker push hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
+if [[ "$PLATFORM" != "" ]]; then
+  docker tag hsac/fitnesse-fixtures-test-jre8:base-${VERSION} hsac/fitnesse-fixtures-test-jre8:base-${VERSION}-${PLATFORM}
+  docker tag hsac/fitnesse-fixtures-combine:${VERSION} hsac/fitnesse-fixtures-combine:${VERSION}-${PLATFORM}
+  docker tag hsac/fitnesse-fixtures-test-jre8:${VERSION} hsac/fitnesse-fixtures-test-jre8:${VERSION}-${PLATFORM}
+  docker tag hsac/fitnesse-fixtures-test-jre8-with-pdf:${VERSION} hsac/fitnesse-fixtures-test-jre8-with-pdf:${VERSION}-${PLATFORM}
+  docker tag hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION} hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}-${PLATFORM}
+  docker tag hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION} hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION}-${PLATFORM}
 fi
 
-echo "Pushing combine latest"
-docker push hsac/fitnesse-fixtures-combine:latest
+echo "Pushing base-${VERSION}-${PLATFORM}"
+docker push hsac/fitnesse-fixtures-test-jre8:base-${VERSION}-${PLATFORM}
 
 if [[ "$VERSION" != "latest" ]]; then
-  docker tag hsac/fitnesse-fixtures-combine:latest hsac/fitnesse-fixtures-combine:${VERSION}
-  echo "Pushing combine ${VERSION}"
-  docker push hsac/fitnesse-fixtures-combine:${VERSION}
+  docker tag hsac/fitnesse-fixtures-test-jre8:base-${VERSION}-${PLATFORM} hsac/fitnesse-fixtures-test-jre8:base-latest-${PLATFORM}
+  echo "Pushing base-latest-${PLATFORM}"
+  docker push hsac/fitnesse-fixtures-test-jre8:base-latest-${PLATFORM}
 fi
 
-echo "Pushing latest"
-docker push hsac/fitnesse-fixtures-test-jre8:latest
+echo "Pushing combine:${VERSION}-${PLATFORM}"
+docker push hsac/fitnesse-fixtures-combine:${VERSION}-${PLATFORM}
 
 if [[ "$VERSION" != "latest" ]]; then
-  docker tag hsac/fitnesse-fixtures-test-jre8:latest hsac/fitnesse-fixtures-test-jre8:${VERSION}
-  echo "Pushing ${VERSION}"
-  docker push hsac/fitnesse-fixtures-test-jre8:${VERSION}
+  docker tag hsac/fitnesse-fixtures-combine:${VERSION}-${PLATFORM} hsac/fitnesse-fixtures-combine:latest-${PLATFORM}
+  echo "Pushing combine:latest-${PLATFORM}"
+  docker push hsac/fitnesse-fixtures-combine:latest-${PLATFORM}
 fi
 
-echo "Pushing with-pdf:latest"
-docker push hsac/fitnesse-fixtures-test-jre8-with-pdf:latest
+echo "Pushing test:${VERSION}-${PLATFORM}"
+docker push hsac/fitnesse-fixtures-test-jre8:${VERSION}-${PLATFORM}
 
 if [[ "$VERSION" != "latest" ]]; then
-  docker tag hsac/fitnesse-fixtures-test-jre8-with-pdf:latest hsac/fitnesse-fixtures-test-jre8-with-pdf:${VERSION}
-  echo "Pushing with-pdf:${VERSION}"
-  docker push hsac/fitnesse-fixtures-test-jre8-with-pdf:${VERSION}
+  docker tag hsac/fitnesse-fixtures-test-jre8:${VERSION}-${PLATFORM} hsac/fitnesse-fixtures-test-jre8:latest-${PLATFORM}
+  echo "Pushing test:latest-${PLATFORM}"
+  docker push hsac/fitnesse-fixtures-test-jre8:latest-${PLATFORM}
 fi
 
-echo "Pushing chrome:latest"
-docker push hsac/fitnesse-fixtures-test-jre8-chrome:latest
+echo "Pushing test-with-pdf:${VERSION}-${PLATFORM}"
+docker push hsac/fitnesse-fixtures-test-jre8-with-pdf:${VERSION}-${PLATFORM}
 
 if [[ "$VERSION" != "latest" ]]; then
-  docker tag hsac/fitnesse-fixtures-test-jre8-chrome:latest hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}
-  echo "Pushing chrome:${VERSION}"
-  docker push hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}
+  docker tag hsac/fitnesse-fixtures-test-jre8-with-pdf:${VERSION}-${PLATFORM} hsac/fitnesse-fixtures-test-jre8-with-pdf:latest-${PLATFORM}
+  echo "Pushing with-pdf:latest-${PLATFORM}"
+  docker push hsac/fitnesse-fixtures-test-jre8-with-pdf:latest-${PLATFORM}
 fi
 
-echo "Pushing chrome-with-pdf:latest"
-docker push hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest
+echo "Pushing chrome:${VERSION}-${PLATFORM}"
+docker push hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}-${PLATFORM}
 
 if [[ "$VERSION" != "latest" ]]; then
-  docker tag hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION}
-  echo "Pushing chrome-with-pdf:${VERSION}"
-  docker push hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION}
+  docker tag hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}-${PLATFORM} hsac/fitnesse-fixtures-test-jre8-chrome:latest-${PLATFORM}
+  echo "Pushing chrome:latest-${PLATFORM}"
+  docker push hsac/fitnesse-fixtures-test-jre8-chrome:latest-${PLATFORM}
 fi
 
-echo "Pushing chrome:latest${VERSION_SUFFIX}"
-docker push hsac/fitnesse-fixtures-test-jre8-chrome:latest${VERSION_SUFFIX}
+echo "Pushing chrome-with-pdf:${VERSION}-${PLATFORM}"
+docker push hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION}-${PLATFORM}
 
 if [[ "$VERSION" != "latest" ]]; then
-  docker tag hsac/fitnesse-fixtures-test-jre8-chrome:latest${VERSION_SUFFIX} hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}${VERSION_SUFFIX}
-  echo "Pushing chrome:${VERSION}${VERSION_SUFFIX}"
-  docker push hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}${VERSION_SUFFIX}
-fi
-
-echo "Pushing chrome-with-pdf:latest${VERSION_SUFFIX}"
-docker push hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest${VERSION_SUFFIX}
-
-if [[ "$VERSION" != "latest" ]]; then
-  docker tag hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest${VERSION_SUFFIX} hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION}${VERSION_SUFFIX}
-  echo "Pushing chrome-with-pdf:${VERSION}${VERSION_SUFFIX}"
-  docker push hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION}${VERSION_SUFFIX}
+  docker tag hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION}-${PLATFORM} hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest-${PLATFORM}
+  echo "Pushing chrome-with-pdf:latest-${PLATFORM}"
+  docker push hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:latest-${PLATFORM}
 fi

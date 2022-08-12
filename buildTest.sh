@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 
-JRE_VERSION=${1:8-alpine3.15-jre}
+JRE_VERSION=${1:-8u345-b01-jre-focal}
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
+VERSION=${1:-latest}
+BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
+IMAGE=hsac/fitnesse-fixtures-test-jre8:${VERSION}
 
-docker pull amazoncorretto:${JRE_VERSION}
+docker pull eclipse-temurin:${JRE_VERSION}
 
-docker build --platform linux/amd64 -t ${IMAGE} test
+docker build --build-arg BASE_IMAGE -t ${IMAGE} test
 
 retVal=$?
 if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then
-    docker run --platform linux/amd64 --rm \
+    docker run --rm \
         -v ${BASEDIR}/target/failsafe-reports:/fitnesse/target/failsafe-reports \
         -v ${BASEDIR}/target/fitnesse-results/test:/fitnesse/target/fitnesse-results \
         -v ${BASEDIR}/target/fitnesse-results/test-rerun:/fitnesse/target/fitnesse-rerun-results \

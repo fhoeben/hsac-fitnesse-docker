@@ -2,14 +2,15 @@
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 VERSION=${1:-latest}
-JRE_VERSION=${2:-8u352-b08-jre-focal}
+JRE_VERSION=${2:-8-jre}
+JRE_IMAGE=eclipse-temurin:${JRE_VERSION}
 
 BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
 IMAGE=hsac/fitnesse-fixtures-test-jre8:${VERSION}
 
-docker pull eclipse-temurin:${JRE_VERSION}
+docker pull ${JRE_IMAGE}
 
-docker build --build-arg BASE_IMAGE -t ${IMAGE} test
+docker build --build-arg BASE_IMAGE --build-arg JRE_IMAGE -t ${IMAGE} test
 
 retVal=$?
 if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then

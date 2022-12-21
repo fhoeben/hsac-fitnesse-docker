@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-JRE_VERSION=${1:-8-jre-alpine}
+JRE_VERSION=${1:-8-jre}
+JRE_IMAGE=eclipse-temurin:${JRE_VERSION}
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
 
-docker pull openjdk:${JRE_VERSION}
+docker pull ${JRE_IMAGE}
 
-docker build  -f test/Dockerfile-local -t ${IMAGE} test
+docker build -f test/Dockerfile-local --build-arg JRE_IMAGE -t ${IMAGE} test
 
 retVal=$?
 if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then

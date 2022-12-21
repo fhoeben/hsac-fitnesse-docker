@@ -1,5 +1,5 @@
 ARG  BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-latest
-ARG  JRE_IMAGE=eclipse-temurin:8u345-b01-jre-focal
+ARG  JRE_IMAGE=eclipse-temurin:8u352-b08-jre-focal
 
 FROM ${BASE_IMAGE} as base
 

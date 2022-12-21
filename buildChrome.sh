@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 VERSION=${1:-latest}
-SELENIUM_VERSION=${2:-103.0}
+SELENIUM_VERSION=${2:-latest}
 SELENIUM_IMAGE=seleniarm/standalone-chromium:${SELENIUM_VERSION}
 TEST_IMAGE=hsac/fitnesse-fixtures-test-jre8:${VERSION}
 

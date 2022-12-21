@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-JRE_VERSION=${1:-8u345-b01-jre-focal}
-
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 VERSION=${1:-latest}
+JRE_VERSION=${2:-8u352-b08-jre-focal}
+
 BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
 IMAGE=hsac/fitnesse-fixtures-test-jre8:${VERSION}
 

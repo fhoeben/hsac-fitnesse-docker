@@ -3,9 +3,9 @@
 VERSION=${1:-latest}
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome-with-pdf:${VERSION}
-TEST_CHROME_IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}
-TEST_PDF_IMAGE=hsac/fitnesse-fixtures-test-jre8-with-pdf:${VERSION}
+IMAGE=hsac/fitnesse-fixtures-test-jre11-chrome-with-pdf:${VERSION}
+export TEST_CHROME_IMAGE=hsac/fitnesse-fixtures-test-jre11-chrome:${VERSION}
+export TEST_PDF_IMAGE=hsac/fitnesse-fixtures-test-jre11-with-pdf:${VERSION}
 
 docker build --build-arg TEST_CHROME_IMAGE --build-arg TEST_PDF_IMAGE -t ${IMAGE} chrome-with-pdf
 

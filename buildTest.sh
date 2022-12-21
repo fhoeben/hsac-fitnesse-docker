@@ -2,11 +2,11 @@
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 VERSION=${1:-latest}
-JRE_VERSION=${2:-8-jre}
+JRE_VERSION=${2:-11-jre}
 JRE_IMAGE=eclipse-temurin:${JRE_VERSION}
 
-BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
-IMAGE=hsac/fitnesse-fixtures-test-jre8:${VERSION}
+export BASE_IMAGE=hsac/fitnesse-fixtures-test-jre11:base-${VERSION}
+export IMAGE=hsac/fitnesse-fixtures-test-jre11:${VERSION}
 
 docker pull ${JRE_IMAGE}
 

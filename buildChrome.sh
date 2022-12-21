@@ -2,11 +2,11 @@
 
 VERSION=${1:-latest}
 SELENIUM_VERSION=${2:-latest}
-SELENIUM_IMAGE=seleniarm/standalone-chromium:${SELENIUM_VERSION}
-TEST_IMAGE=hsac/fitnesse-fixtures-test-jre8:${VERSION}
+export SELENIUM_IMAGE=seleniarm/standalone-chromium:${SELENIUM_VERSION}
+export TEST_IMAGE=hsac/fitnesse-fixtures-test-jre11:${VERSION}
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE=hsac/fitnesse-fixtures-test-jre8-chrome:${VERSION}
+IMAGE=hsac/fitnesse-fixtures-test-jre11-chrome:${VERSION}
 
 docker pull ${SELENIUM_IMAGE}
 

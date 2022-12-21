@@ -36,9 +36,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.outputTimestamp>2020-01-01T00:00:00Z</project.build.outputTimestamp>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <fitnesse.version>20221219</fitnesse.version>
-        <hsac.fixtures.version>5.2.37</hsac.fixtures.version>
+        <fitnesse.version>20231029</fitnesse.version>
+        <hsac.fixtures.version>5.3.0</hsac.fixtures.version>
         <hsac.pdf.version>0.0.5</hsac.pdf.version>
         <hsac.email.version>0.5.0</hsac.email.version>
         <standalone.classpath>test/wiki/fixtures</standalone.classpath>
@@ -121,17 +122,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
+                <version>3.11.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <release>11</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+            <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.3.1</version>
                 <configuration>
                     <filesets>
                         <fileset>
@@ -149,7 +154,7 @@
                      dependencies are available to Fitnesse without need to have Maven to run tests.
                 -->
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies-to-wiki-fixtures</id>
@@ -216,6 +221,7 @@
                                     <mainClass>nl.hsac.fitnesse.junit.reportmerge.HtmlReportIndexGenerator</mainClass>
                                 </transformer>
                             </transformers>
+                            <useBaseVersion>true</useBaseVersion>
                             <minimizeJar>true</minimizeJar>
                             <outputFile>combine/target/hsac-html-report-generator.jar</outputFile>
                             <filters>

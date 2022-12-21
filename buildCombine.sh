@@ -5,9 +5,9 @@ GRAALVM_VERSION=${2:-latest}
 BUSYBOX_VERSION=latest
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
-GRAALVM_IMAGE=ghcr.io/graalvm/native-image:${GRAALVM_VERSION}
-BUSYBOX_IMAGE=busybox:${BUSYBOX_VERSION}
+export BASE_IMAGE=hsac/fitnesse-fixtures-test-jre11:base-${VERSION}
+export GRAALVM_IMAGE=ghcr.io/graalvm/native-image:${GRAALVM_VERSION}
+export BUSYBOX_IMAGE=busybox:${BUSYBOX_VERSION}
 IMAGE=hsac/fitnesse-fixtures-combine:${VERSION}
 
 docker pull ${GRAALVM_IMAGE}

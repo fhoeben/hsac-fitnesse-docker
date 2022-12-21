@@ -2,9 +2,9 @@
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 VERSION=${1:-latest}
-BASE_IMAGE=hsac/fitnesse-fixtures-test-jre8:base-${VERSION}
-TEST_IMAGE=hsac/fitnesse-fixtures-test-jre8:${VERSION}
-IMAGE=hsac/fitnesse-fixtures-test-jre8-with-pdf:${VERSION}
+export BASE_IMAGE=hsac/fitnesse-fixtures-test-jre11:base-${VERSION}
+export TEST_IMAGE=hsac/fitnesse-fixtures-test-jre11:${VERSION}
+IMAGE=hsac/fitnesse-fixtures-test-jre11-with-pdf:${VERSION}
 
 docker build --build-arg BASE_IMAGE --build-arg TEST_IMAGE -t ${IMAGE} test-with-pdf
 

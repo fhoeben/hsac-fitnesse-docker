@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-JRE_VERSION=${1:-8-jre}
-JRE_IMAGE=eclipse-temurin:${JRE_VERSION}
+JRE_VERSION=${1:-11-jre}
+export JRE_IMAGE=eclipse-temurin:${JRE_VERSION}
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE=hsac/fitnesse-fixtures-test-jre8:latest
+IMAGE=hsac/fitnesse-fixtures-test-jre11:latest
 
 docker pull ${JRE_IMAGE}
 

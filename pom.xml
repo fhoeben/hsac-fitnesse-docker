@@ -37,8 +37,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <fitnesse.version>20220815</fitnesse.version>
-        <hsac.fixtures.version>5.2.13</hsac.fixtures.version>
+        <fitnesse.version>20221219</fitnesse.version>
+        <hsac.fixtures.version>5.2.33</hsac.fixtures.version>
         <hsac.pdf.version>0.0.5</hsac.pdf.version>
         <hsac.email.version>0.5.0</hsac.email.version>
         <standalone.classpath>test/wiki/fixtures</standalone.classpath>

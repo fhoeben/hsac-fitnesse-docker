@@ -3,7 +3,9 @@ ARG  JRE_IMAGE=eclipse-temurin:11-jre
 
 FROM ${BASE_IMAGE} as base
 
-FROM ${JRE_IMAGE}
+FROM ${JRE_IMAGE} as jre
+
+FROM jre
 RUN mkdir -p /fitnesse/wiki/fixtures/nl/hsac/fitnesse
 
 WORKDIR /fitnesse

@@ -2,7 +2,9 @@ ARG  TEST_IMAGE=hsac/fitnesse-fixtures-test-jre11:latest
 ARG  SELENIUM_IMAGE=seleniarm/standalone-chromium:latest
 FROM ${TEST_IMAGE} as hsac-fixtures
 
-FROM ${SELENIUM_IMAGE}
+FROM ${SELENIUM_IMAGE} as selenium
+
+FROM selenium
 RUN sudo mv /etc/supervisor/conf.d/selenium.conf /etc/supervisor/conf.d/selenium.conf.bak && \
     sudo mkdir -p /fitnesse/target && \
     sudo mkdir -p /fitnesse/wiki/webdrivers && \

@@ -4,5 +4,7 @@ ARG  TEST_IMAGE=hsac/fitnesse-fixtures-test-jre11:latest
 FROM ${BASE_IMAGE} as base
 RUN mvn compile -P withPdf
 
-FROM ${TEST_IMAGE}
+FROM ${TEST_IMAGE} as hsac-fixtures
+
+FROM hsac-fixtures
 COPY --from=base /usr/src/test/wiki/fixtures wiki/fixtures

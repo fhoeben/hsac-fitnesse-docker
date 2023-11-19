@@ -50,10 +50,10 @@ COPY --from=base ${BASE_WORKDIR}/test/wiki wiki/
 # ========== TEST-WITH-PDF ===========
 FROM base as base-with-pdf
 ARG VERSION
-ARG BASE_WORKDIR
 RUN mvn compile -P withPdf -Dhsac.fixtures.version=${VERSION}
 
 FROM hsac-fixtures as hsac-fixtures-with-pdf
+ARG BASE_WORKDIR
 COPY --from=base-with-pdf ${BASE_WORKDIR}/test/wiki/fixtures wiki/fixtures
 
 

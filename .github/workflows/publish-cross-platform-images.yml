@@ -77,22 +77,28 @@ jobs:
             chrome-with-pdf.output=type=image,"name=hsac/fitnesse-fixtures-test-jre11-chrome-with-pdf",push-by-digest=true,name-canonical=true,push=true
 
       - name: Export digests
+        id: digests
         run: |
           mkdir -p /tmp/digests/test
           test_digest="${{ fromJSON(steps.bake.outputs.metadata)['test']['containerimage.digest'] }}"
           touch "/tmp/digests/test/${test_digest#sha256:}"
+          echo "test-image=hsac/fitnesse-fixtures-test-jre11@${test_digest}" >> $GITHUB_OUTPUT
           mkdir -p /tmp/digests/combine
           combine_digest="${{ fromJSON(steps.bake.outputs.metadata)['combine']['containerimage.digest'] }}"
           touch "/tmp/digests/combine/${combine_digest#sha256:}"
+          echo "combine-image=hsac/fitnesse-fixtures-combine@${combine_digest}" >> $GITHUB_OUTPUT
           mkdir -p /tmp/digests/chrome
           chrome_digest="${{ fromJSON(steps.bake.outputs.metadata)['chrome']['containerimage.digest'] }}"
           touch "/tmp/digests/chrome/${chrome_digest#sha256:}"
+          echo "chrome-image=hsac/fitnesse-fixtures-test-jre11-chrome@${chrome_digest}" >> $GITHUB_OUTPUT
           mkdir -p /tmp/digests/test-with-pdf
           test_with_pdf_digest="${{ fromJSON(steps.bake.outputs.metadata)['test-with-pdf']['containerimage.digest'] }}"
           touch "/tmp/digests/test-with-pdf/${test_with_pdf_digest#sha256:}"
+          echo "test-with-pdf-image=hsac/fitnesse-fixtures-test-jre11-with-pdf@${test_with_pdf_digest}" >> $GITHUB_OUTPUT
           mkdir -p /tmp/digests/chrome-with-pdf
           chrome_with_pdf_digest="${{ fromJSON(steps.bake.outputs.metadata)['chrome-with-pdf']['containerimage.digest'] }}"
           touch "/tmp/digests/chrome-with-pdf/${chrome_with_pdf_digest#sha256:}"
+          echo "chrome-with-pdf-image=hsac/fitnesse-fixtures-test-jre11-chrome-with-pdf@${chrome_with_pdf_digest}" >> $GITHUB_OUTPUT
 
       - name: Upload digest
         uses: actions/upload-artifact@v3
@@ -105,24 +111,51 @@ jobs:
       - name: Test test image
         if: matrix.platform == 'linux/amd64'
         run: |
-          SHA="sha256:$(cd /tmp/digests/test; ls *)"
-          IMAGE="hsac/fitnesse-fixtures-test-jre11@${SHA}"
+          cd docker
+          mkdir -p target/failsafe-reports
+          mkdir -p target/fitnesse-results/test
+          mkdir -p target/fitnesse-results/test-rerun
           docker run --rm \
+            -v "$(pwd)"/target/failsafe-reports:/fitnesse/target/failsafe-reports \
+            -v "$(pwd)"/target/fitnesse-results/test:/fitnesse/target/fitnesse-results \
+            -v "$(pwd)"/target/fitnesse-results/test-rerun:/fitnesse/target/fitnesse-rerun-results \
             -v "$(pwd)"/src/main/wiki:/fitnesse/wiki/FitNesseRoot \
             -e RE_RUN_FAILED=true \
-            ${IMAGE} \
+            ${{ steps.digests.outputs.test-image }} \
             -DfitnesseSuiteToRun=SampleTests.SlimTests.UtilityFixtures
 
       - name: Test chrome image
         if: matrix.platform == 'linux/amd64'
         run: |
-          SHA="sha256:$(cd /tmp/digests/chrome; ls *)"
-          IMAGE="hsac/fitnesse-fixtures-test-jre11-chrome@${SHA}"
+          cd docker
+          mkdir -p target/failsafe-reports
+          mkdir -p target/fitnesse-results/chrome
+          mkdir -p target/fitnesse-results/chrome-rerun
+          mkdir -p target/selenium-log
           docker run --rm \
+            -v "$(pwd)"/target/failsafe-reports:/fitnesse/target/failsafe-reports \
+            -v "$(pwd)"/target/fitnesse-results/chrome:/fitnesse/target/fitnesse-results \
+            -v "$(pwd)"/target/fitnesse-results/chrome-rerun:/fitnesse/target/fitnesse-rerun-results \
+            -v "$(pwd)"/target/selenium-log:/fitnesse/target/selenium-log \
             -v "$(pwd)"/src/main/wiki:/fitnesse/wiki/FitNesseRoot \
             -e RE_RUN_FAILED=true \
-            ${IMAGE} \
+            ${{ steps.digests.outputs.chrome-image }} \
             -DfitnesseSuiteToRun=SampleTests.SlimTests.BrowserTest
+
+      - name: Test combine image
+        if: matrix.platform == 'linux/amd64'
+        run: |
+          cd docker
+          docker run --rm \
+            -v "$(pwd)"/target/fitnesse-results:/fitnesse/target/fitnesse-results \
+            ${{ steps.digests.outputs.combine-image }}
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-tests-results
+          path: docker/target
 
   merge:
     runs-on: ubuntu-latest

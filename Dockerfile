@@ -6,9 +6,7 @@ ARG BUSYBOX_IMAGE=busybox:latest
 ARG VERSION=5.3.0
 
 # ========== BASE ===========
-FROM maven:${MAVEN_VERSION} as build
-ARG VERSION
-FROM build as base
+FROM maven:${MAVEN_VERSION} as base
 ARG VERSION
 
 RUN mkdir -p /usr/src
@@ -24,8 +22,7 @@ RUN mvn package -Dhsac.fixtures.version=${VERSION}
 
 
 # ========== TEST ===========
-FROM ${JRE_IMAGE} as jre
-FROM jre as hsac-fixtures
+FROM ${JRE_IMAGE} as hsac-fixtures
 RUN mkdir -p /fitnesse/wiki/fixtures/nl/hsac/fitnesse
 
 WORKDIR /fitnesse
@@ -57,8 +54,7 @@ COPY --from=base-with-pdf /usr/src/test/wiki/fixtures wiki/fixtures
 
 
 # ========== CHROME ===========
-FROM ${SELENIUM_IMAGE} as selenium
-FROM selenium as hsac-chrome
+FROM ${SELENIUM_IMAGE} as hsac-chrome
 RUN sudo mv /etc/supervisor/conf.d/selenium.conf /etc/supervisor/conf.d/selenium.conf.bak && \
     sudo mkdir -p /fitnesse/target && \
     sudo mkdir -p /fitnesse/wiki/webdrivers && \
@@ -88,8 +84,7 @@ COPY --from=hsac-fixtures-with-pdf /fitnesse/wiki/fixtures /fitnesse/wiki/fixtur
 
 
 # ========== COMBINE ===========
-FROM ${GRAALVM_IMAGE} as graal
-FROM graal as graal-fitnesse
+FROM ${GRAALVM_IMAGE} as graal-fitnesse
 RUN mkdir -p /fitnesse/target
 
 WORKDIR /fitnesse
@@ -98,8 +93,7 @@ COPY --from=base /usr/src/combine/target/hsac-html-report-generator.jar target/
 ENV JAVA_TOOL_OPTIONS="-Djdk.lang.Process.launchMechanism=vfork"
 RUN native-image -jar target/hsac-html-report-generator.jar --static
 
-FROM ${BUSYBOX_IMAGE} as busybox
-FROM busybox as combine
+FROM ${BUSYBOX_IMAGE} as combine
 WORKDIR /fitnesse
 VOLUME /fitnesse/target
 

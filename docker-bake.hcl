@@ -32,8 +32,8 @@ target "base" {
 target "test" {
   inherits = ["_hsac-base-target"]
   pull = true
-  contexts = {
-    jre = "docker-image://eclipse-temurin:11-jre"
+  args = {
+    JRE_IMAGE = "eclipse-temurin:11-jre"
   }
   target = "hsac-fixtures"
   tags = ["hsac/fitnesse-fixtures-test-jre11:${TAG}"]
@@ -48,8 +48,8 @@ target "test-with-pdf" {
 target "chrome" {
   inherits = ["_hsac-base-target"]
   pull = true
-  contexts = {
-    selenium = "docker-image://seleniarm/standalone-chromium:${SELENIUM_VERSION}"
+  args = {
+    SELENIUM_IMAGE = "seleniarm/standalone-chromium:${SELENIUM_VERSION}"
   }
   target = "hsac-chrome"
   tags = ["hsac/fitnesse-fixtures-test-jre11-chrome:${TAG}"]
@@ -64,9 +64,9 @@ target "chrome-with-pdf" {
 target "combine" {
   inherits = ["_hsac-base-target"]
   pull = true
-  contexts = {
-    graal = "docker-image://ghcr.io/graalvm/native-image:latest"
-    busybox = "docker-image://busybox:latest"
+  args = {
+    GRAALVM_IMAGE = "ghcr.io/graalvm/native-image:latest"
+    BUSYBOX_IMAGE = "busybox:latest"
   }
   target = "combine"
   tags = ["hsac/fitnesse-fixtures-combine:${TAG}"]

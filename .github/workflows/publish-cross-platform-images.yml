@@ -7,7 +7,6 @@ on:
     paths-ignore:
       - '*.sh'
       - 'README.md'
-      - 'compose'
 
 jobs:
   build:

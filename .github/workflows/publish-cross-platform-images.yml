@@ -107,14 +107,22 @@ jobs:
         run: |
           SHA="sha256:$(cd /tmp/digests/test; ls *)"
           IMAGE="hsac/fitnesse-fixtures-test-jre11@${SHA}"
-          docker run --rm -v "$(pwd)"/src/main/wiki:/fitnesse/wiki/FitNesseRoot -e RE_RUN_FAILED=true ${IMAGE} -DfitnesseSuiteToRun=SampleTests.SlimTests.UtilityFixtures
+          docker run --rm \
+            -v "$(pwd)"/src/main/wiki:/fitnesse/wiki/FitNesseRoot \
+            -e RE_RUN_FAILED=true \
+            ${IMAGE} \
+            -DfitnesseSuiteToRun=SampleTests.SlimTests.UtilityFixtures
 
       - name: Test chrome image
         if: matrix.platform == 'linux/amd64'
         run: |
           SHA="sha256:$(cd /tmp/digests/chrome; ls *)"
           IMAGE="hsac/fitnesse-fixtures-test-jre11-chrome@${SHA}"
-          docker run --rm -v "$(pwd)"/src/main/wiki:/fitnesse/wiki/FitNesseRoot -e RE_RUN_FAILED=true ${IMAGE} -DfitnesseSuiteToRun=SampleTests.SlimTests.BrowserTest
+          docker run --rm \
+            -v "$(pwd)"/src/main/wiki:/fitnesse/wiki/FitNesseRoot \
+            -e RE_RUN_FAILED=true \
+            ${IMAGE} \
+            -DfitnesseSuiteToRun=SampleTests.SlimTests.BrowserTest
 
   merge:
     runs-on: ubuntu-latest

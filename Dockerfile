@@ -4,13 +4,15 @@ ARG SELENIUM_IMAGE=seleniarm/standalone-chromium:latest
 ARG GRAALVM_IMAGE=ghcr.io/graalvm/native-image:latest
 ARG BUSYBOX_IMAGE=busybox:latest
 ARG VERSION=5.3.0
+ARG BASE_WORKDIR=/usr/src
 
 # ========== BASE ===========
 FROM maven:${MAVEN_VERSION} as base
 ARG VERSION
+ARG BASE_WORKDIR
 
-RUN mkdir -p /usr/src
-WORKDIR /usr/src
+RUN mkdir -p ${BASE_WORKDIR}
+WORKDIR ${BASE_WORKDIR}
 
 COPY pom.xml .
 
@@ -23,6 +25,7 @@ RUN mvn package -Dhsac.fixtures.version=${VERSION}
 
 # ========== TEST ===========
 FROM ${JRE_IMAGE} as hsac-fixtures
+ARG BASE_WORKDIR
 RUN mkdir -p /fitnesse/wiki/fixtures/nl/hsac/fitnesse
 
 WORKDIR /fitnesse
@@ -41,16 +44,17 @@ COPY test/htmlReportIndexGenerator.sh .
 ENTRYPOINT ["/fitnesse/runTests.sh"]
 CMD []
 
-COPY --from=base /usr/src/test/wiki wiki/
+COPY --from=base ${BASE_WORKDIR}/test/wiki wiki/
 
 
 # ========== TEST-WITH-PDF ===========
 FROM base as base-with-pdf
 ARG VERSION
+ARG BASE_WORKDIR
 RUN mvn compile -P withPdf -Dhsac.fixtures.version=${VERSION}
 
 FROM hsac-fixtures as hsac-fixtures-with-pdf
-COPY --from=base-with-pdf /usr/src/test/wiki/fixtures wiki/fixtures
+COPY --from=base-with-pdf ${BASE_WORKDIR}/test/wiki/fixtures wiki/fixtures
 
 
 # ========== CHROME ===========
@@ -85,11 +89,12 @@ COPY --from=hsac-fixtures-with-pdf /fitnesse/wiki/fixtures /fitnesse/wiki/fixtur
 
 # ========== COMBINE ===========
 FROM ${GRAALVM_IMAGE} as graal-fitnesse
+ARG BASE_WORKDIR
 RUN mkdir -p /fitnesse/target
 
 WORKDIR /fitnesse
 
-COPY --from=base /usr/src/combine/target/hsac-html-report-generator.jar target/
+COPY --from=base ${BASE_WORKDIR}/combine/target/hsac-html-report-generator.jar target/
 ENV JAVA_TOOL_OPTIONS="-Djdk.lang.Process.launchMechanism=vfork"
 RUN native-image -jar target/hsac-html-report-generator.jar --static
 

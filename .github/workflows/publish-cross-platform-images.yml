@@ -119,7 +119,7 @@ jobs:
             -v "$(pwd)"/target/failsafe-reports:/fitnesse/target/failsafe-reports \
             -v "$(pwd)"/target/fitnesse-results/test:/fitnesse/target/fitnesse-results \
             -v "$(pwd)"/target/fitnesse-results/test-rerun:/fitnesse/target/fitnesse-rerun-results \
-            -v "$(pwd)"/src/main/wiki:/fitnesse/wiki/FitNesseRoot \
+            -v "$(pwd)"/src/test/wiki:/fitnesse/wiki/FitNesseRoot \
             -e RE_RUN_FAILED=true \
             ${{ steps.digests.outputs.test-image }} \
             -DfitnesseSuiteToRun=SampleTests.SlimTests.UtilityFixtures
@@ -137,10 +137,27 @@ jobs:
             -v "$(pwd)"/target/fitnesse-results/chrome:/fitnesse/target/fitnesse-results \
             -v "$(pwd)"/target/fitnesse-results/chrome-rerun:/fitnesse/target/fitnesse-rerun-results \
             -v "$(pwd)"/target/selenium-log:/fitnesse/target/selenium-log \
-            -v "$(pwd)"/src/main/wiki:/fitnesse/wiki/FitNesseRoot \
+            -v "$(pwd)"/src/test/wiki:/fitnesse/wiki/FitNesseRoot \
+            -e CHANGE_FITNESSE_DIRECTOY_OWNER=true \
             -e RE_RUN_FAILED=true \
             ${{ steps.digests.outputs.chrome-image }} \
             -DfitnesseSuiteToRun=SampleTests.SlimTests.BrowserTest
+
+      - name: Test pdf image
+        if: matrix.platform == 'linux/amd64'
+        run: |
+          cd docker
+          mkdir -p target/failsafe-reports
+          mkdir -p target/fitnesse-results/test-with-pdf
+          mkdir -p target/fitnesse-results/test-with-pdf-rerun
+          docker run --rm \
+            -v "$(pwd)"/target/failsafe-reports:/fitnesse/target/failsafe-reports \
+            -v "$(pwd)"/target/fitnesse-results/test-with-pdf:/fitnesse/target/fitnesse-results \
+            -v "$(pwd)"/target/fitnesse-results/test-with-pdf-rerun:/fitnesse/target/fitnesse-rerun-results \
+            -v "$(pwd)"/src/test/wiki:/fitnesse/wiki/FitNesseRoot \
+            -e RE_RUN_FAILED=true \
+            ${{ steps.digests.outputs.test-with-pdf-image }} \
+            -DfitnesseSuiteToRun=SampleTests.SlimTests.PdfTest
 
       - name: Test combine image
         if: matrix.platform == 'linux/amd64'

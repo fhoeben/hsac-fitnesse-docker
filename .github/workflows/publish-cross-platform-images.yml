@@ -5,6 +5,7 @@ on:
     branches:
       - '*'
     paths-ignore:
+      - '.github/dependabot.yml'
       - '*.sh'
       - 'README.md'
 

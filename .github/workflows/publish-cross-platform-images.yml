@@ -112,7 +112,6 @@ jobs:
       - name: Test test image
         if: matrix.platform == 'linux/amd64'
         run: |
-          cd docker
           mkdir -p target/failsafe-reports
           mkdir -p target/fitnesse-results/test
           mkdir -p target/fitnesse-results/test-rerun
@@ -128,7 +127,6 @@ jobs:
       - name: Test chrome image
         if: matrix.platform == 'linux/amd64'
         run: |
-          cd docker
           mkdir -p target/failsafe-reports
           mkdir -p target/fitnesse-results/chrome
           mkdir -p target/fitnesse-results/chrome-rerun
@@ -147,7 +145,6 @@ jobs:
       - name: Test pdf image
         if: matrix.platform == 'linux/amd64'
         run: |
-          cd docker
           mkdir -p target/failsafe-reports
           mkdir -p target/fitnesse-results/test-with-pdf
           mkdir -p target/fitnesse-results/test-with-pdf-rerun
@@ -163,7 +160,6 @@ jobs:
       - name: Test combine image
         if: matrix.platform == 'linux/amd64'
         run: |
-          cd docker
           docker run --rm \
             -v "$(pwd)"/target/fitnesse-results:/fitnesse/target/fitnesse-results \
             ${{ steps.digests.outputs.combine-image }}
@@ -173,7 +169,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: docker-tests-results
-          path: docker/target
+          path: target
 
   merge:
     runs-on: ubuntu-latest

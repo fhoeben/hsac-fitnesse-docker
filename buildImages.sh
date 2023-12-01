@@ -15,7 +15,7 @@ if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then
         -v ${BASEDIR}/target/failsafe-reports:/fitnesse/target/failsafe-reports \
         -v ${BASEDIR}/target/fitnesse-results/test:/fitnesse/target/fitnesse-results \
         -v ${BASEDIR}/target/fitnesse-results/test-rerun:/fitnesse/target/fitnesse-rerun-results \
-        -v ${BASEDIR}/src/main/wiki:/fitnesse/wiki/FitNesseRoot \
+        -v ${BASEDIR}/src/test/wiki:/fitnesse/wiki/FitNesseRoot \
         -e RE_RUN_FAILED=true \
         ${IMAGE} \
         -DfitnesseSuiteToRun=SampleTests.SlimTests.UtilityFixtures
@@ -29,7 +29,7 @@ if [ ${retVal} -eq 0 -a "${TEST_IMAGES}" = "true" ]; then
         -v ${BASEDIR}/target/fitnesse-results/chrome:/fitnesse/target/fitnesse-results \
         -v ${BASEDIR}/target/fitnesse-results/chrome-rerun:/fitnesse/target/fitnesse-rerun-results \
         -v ${BASEDIR}/target/selenium-log:/fitnesse/target/selenium-log \
-        -v ${BASEDIR}/src/main/wiki:/fitnesse/wiki/FitNesseRoot \
+        -v ${BASEDIR}/src/test/wiki:/fitnesse/wiki/FitNesseRoot \
         -e RE_RUN_FAILED=true \
         ${IMAGE} \
         -DfitnesseSuiteToRun=SampleTests.SlimTests.BrowserTest

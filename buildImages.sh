@@ -2,7 +2,7 @@
 
 TEST_IMAGES=true
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-VERSION=${1:-5.3.1}
+VERSION=${1:-5.3.8}
 TAG=${2:-latest}
 
 VERSION=${VERSION} TAG=${TAG} docker buildx bake --load
